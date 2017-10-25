@@ -21,18 +21,27 @@ int main(int argc, char** argv)
   if ( !allow_repeat ) repeat_delay=0; // disable 
   keyboard::Keyboard kbd( repeat_delay, repeat_interval );
   
-  ros::Rate r(50);
+  ros::Rate r(10);
   
+
   keyboard::Key k;
   bool pressed, new_event;
-  while (ros::ok() && kbd.get_key(new_event, pressed, k.code, k.modifiers)) {
-    if (new_event) {
+	pressed = false;
+	new_event = false;
+  while (ros::ok() && kbd.get_key(new_event, pressed, k.code, k.modifiers)) 
+  {
+   // if (new_event )
+     //{
       k.header.stamp = ros::Time::now();
-      if (pressed) pub_down.publish(k);
+      if (pressed) 
+	{
+	pub_down.publish(k);
+	//ROS_INFO("pressed");
+	}
       else pub_up.publish(k);
-    }
+    //}
     ros::spinOnce();
-    r.sleep();
+   r.sleep();
   }
   
   ros::waitForShutdown();

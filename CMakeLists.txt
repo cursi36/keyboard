@@ -37,8 +37,20 @@ catkin_package(
 include_directories(${catkin_INCLUDE_DIRS} ${SDL_INCLUDE_DIR})
 
 add_executable(keyboard src/main.cpp src/keyboard.cpp)
+add_executable(keyboard_subscriber_node src/keyboard_subscriber.cpp)
+add_executable(keyboard_subscriber_twist_node src/keyboard_subscriber_twist.cpp)
+
 
 target_link_libraries(keyboard
+  ${LIBS}
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(keyboard_subscriber_node
+  ${LIBS}
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(keyboard_subscriber_twist_node
   ${LIBS}
   ${catkin_LIBRARIES}
 )
